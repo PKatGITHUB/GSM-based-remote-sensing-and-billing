@@ -5,6 +5,9 @@
  */
 package selabproject;
 
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author admin
@@ -58,12 +61,17 @@ public class SELabGUI extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
+        firstNameFeild = new javax.swing.JTextField();
+        userNameFeild = new javax.swing.JTextField();
+        lastNameFeild = new javax.swing.JTextField();
+        emailIdFeild = new javax.swing.JTextField();
+        passwordFeild = new javax.swing.JTextField();
+        GSMDeviceIdFeild = new javax.swing.JTextField();
+        registerUserButton = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        userTypeComboBox = new javax.swing.JComboBox<>();
+        registrationSuccess = new javax.swing.JDialog();
+        jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -241,10 +249,10 @@ public class SELabGUI extends javax.swing.JFrame {
         jLabel6.setText("Register");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("First Name                       :");
+        jLabel7.setText("First Name                        :");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Last Name                       :");
+        jLabel8.setText("Last Name                        :");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("User Name                       :");
@@ -258,64 +266,121 @@ public class SELabGUI extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("GSM Device ID                 :");
 
+        registerUserButton.setText("Register");
+        registerUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerUserButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Select User Type              :");
+
+        userTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Home User", "Agricultural User", "Industrial User" }));
+        userTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTypeComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout registerPanelLayout = new javax.swing.GroupLayout(registerPanel);
         registerPanel.setLayout(registerPanelLayout);
         registerPanelLayout.setHorizontalGroup(
             registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerPanelLayout.createSequentialGroup()
+                .addGap(0, 235, Short.MAX_VALUE)
+                .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(25, 25, 25)
+                .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lastNameFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(firstNameFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(emailIdFeild)
+                        .addComponent(passwordFeild)
+                        .addComponent(GSMDeviceIdFeild, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                        .addComponent(userNameFeild)
+                        .addComponent(userTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(183, 183, 183))
             .addGroup(registerPanelLayout.createSequentialGroup()
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(registerPanelLayout.createSequentialGroup()
                         .addGap(389, 389, 389)
                         .addComponent(jLabel6))
                     .addGroup(registerPanelLayout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
-                        .addGap(27, 27, 27)
-                        .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField8)
-                            .addComponent(jTextField9)
-                            .addComponent(jTextField10)
-                            .addComponent(jTextField11)
-                            .addComponent(jTextField12)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))))
-                .addContainerGap(185, Short.MAX_VALUE))
+                        .addGap(374, 374, 374)
+                        .addComponent(registerUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         registerPanelLayout.setVerticalGroup(
             registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(registerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addGap(69, 69, 69)
+                .addGap(44, 44, 44)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(firstNameFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lastNameFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userNameFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailIdFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                    .addComponent(GSMDeviceIdFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(registerUserButton)
+                .addContainerGap(101, Short.MAX_VALUE))
+        );
+
+        registrationSuccess.setTitle("Successful Registration");
+        registrationSuccess.setBounds(new java.awt.Rectangle(0, 0, 451, 197));
+        registrationSuccess.setMaximumSize(new java.awt.Dimension(451, 197));
+        registrationSuccess.setType(java.awt.Window.Type.POPUP);
+
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel14.setText("User Successfully Registered!");
+        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout registrationSuccessLayout = new javax.swing.GroupLayout(registrationSuccess.getContentPane());
+        registrationSuccess.getContentPane().setLayout(registrationSuccessLayout);
+        registrationSuccessLayout.setHorizontalGroup(
+            registrationSuccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrationSuccessLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel14)
+                .addContainerGap(94, Short.MAX_VALUE))
+        );
+        registrationSuccessLayout.setVerticalGroup(
+            registrationSuccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrationSuccessLayout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(jLabel14)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -401,7 +466,7 @@ public class SELabGUI extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -502,6 +567,52 @@ public class SELabGUI extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_registerButtonActionPerformed
 
+    private void userTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTypeComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTypeComboBoxActionPerformed
+
+    private void registerUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerUserButtonActionPerformed
+        // TODO add your handling code here:
+        
+        String firstName,lastName,userName,emailId,password,userType,deviceId;
+        String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost:3306/selab";
+
+        //  Database credentials
+        String USER = "root";
+        String PASS = "password";
+
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+           //STEP 2: Register JDBC driver
+           Class.forName("com.mysql.jdbc.Driver");
+
+           //STEP 3: Open a connection
+           System.out.println("Connecting to a selected database...");
+           conn = DriverManager.getConnection(DB_URL, USER, PASS);
+           System.out.println("Connected database successfully...");
+            firstName=firstNameFeild.getText();
+            lastName=lastNameFeild.getText();
+            userName=userNameFeild.getText();
+            emailId=emailIdFeild.getText();
+            password=passwordFeild.getText();
+            userType=userTypeComboBox.getItemAt(userTypeComboBox.getSelectedIndex());
+            deviceId=GSMDeviceIdFeild.getText();
+            
+            stmt=conn.createStatement();
+            String insertBasicInformation="INSERT INTO basic_user_information " + 
+                    "VALUES ('" + firstName + "','" + lastName + "','" + userName + "','" + emailId + "','" + password + "','" + userType + "')";
+            stmt.executeUpdate(insertBasicInformation);
+            registrationSuccess.setVisible(true);
+            
+        }catch(SQLException e){
+            System.out.print("Exception");
+        } catch (Exception ex) {
+            Logger.getLogger(SELabGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_registerUserButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -538,11 +649,14 @@ public class SELabGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField GSMDeviceIdFeild;
     private javax.swing.JButton aboutUsButton;
     private javax.swing.JButton adminLoginButton;
     private javax.swing.JPanel adminLoginPanel;
     private javax.swing.JButton contactUsButton;
     private javax.swing.JPanel contactUsPanel;
+    private javax.swing.JTextField emailIdFeild;
+    private javax.swing.JTextField firstNameFeild;
     private javax.swing.JButton homeButton;
     private javax.swing.JPanel homePanel;
     private javax.swing.JButton jButton1;
@@ -551,6 +665,8 @@ public class SELabGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -568,23 +684,23 @@ public class SELabGUI extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField lastNameFeild;
     private javax.swing.JButton loginButton;
     private javax.swing.JPanel loginPanel;
+    private javax.swing.JTextField passwordFeild;
     private javax.swing.JButton registerButton;
     private javax.swing.JPanel registerPanel;
+    private javax.swing.JButton registerUserButton;
+    private javax.swing.JDialog registrationSuccess;
     private javax.swing.JButton userLoginButton;
     private javax.swing.JPanel userLoginPanel;
+    private javax.swing.JTextField userNameFeild;
+    private javax.swing.JComboBox<String> userTypeComboBox;
     // End of variables declaration//GEN-END:variables
 }

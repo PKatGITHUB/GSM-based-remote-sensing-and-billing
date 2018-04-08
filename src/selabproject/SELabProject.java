@@ -19,6 +19,7 @@ public class SELabProject {
         SELabGUI abc = new SELabGUI();
         abc.setVisible(true);
         
+        
     }
     
 }

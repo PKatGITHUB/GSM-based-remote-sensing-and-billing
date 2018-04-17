@@ -5,6 +5,11 @@
         <group>
             <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/src/selabproject/SELabProject.java</file>
             <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/src/selabproject/SELabGUI.java</file>
+            <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/src/selabproject/RegisterUser.java</file>
+            <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/src/selabproject/RunRScript.java</file>
+            <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/test/selabproject/RegisterUserTest.java</file>
+            <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/test/selabproject/RunRScriptTest.java</file>
+            <file>file:/F:/college%20study/SEM-6/SOFTWARE%20ENGINEERING/SE-LAB/GSM-based-remote-sensing-and-billing-master/src/selabproject/SendEmail.java</file>
         </group>
     </open-files>
 </project-private>

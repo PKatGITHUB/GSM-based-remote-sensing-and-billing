@@ -8,6 +8,8 @@ package selabproject;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import org.rosuda.REngine.REngineException;
 /**
  *
  * @author admin
@@ -17,6 +19,20 @@ public class SELabGUI extends javax.swing.JFrame {
     /**
      * Creates new form SELabGUI
      */
+    
+    String username;
+    
+    DefaultTableModel model;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    
     public SELabGUI() {
         initComponents();
     }
@@ -42,9 +58,9 @@ public class SELabGUI extends javax.swing.JFrame {
         userLoginPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        usernameTextField = new javax.swing.JTextField();
+        passwordTextField = new javax.swing.JTextField();
+        usrLoginButton = new javax.swing.JButton();
         adminLoginPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -72,6 +88,31 @@ public class SELabGUI extends javax.swing.JFrame {
         userTypeComboBox = new javax.swing.JComboBox<>();
         registrationSuccess = new javax.swing.JDialog();
         jLabel14 = new javax.swing.JLabel();
+        userHomePanel = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        profileButton = new javax.swing.JButton();
+        billsButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        profilePanel = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        userName = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        firstName = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        userType = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
+        billPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        aboutUsPanel = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        errorLogin = new javax.swing.JDialog();
+        jLabel19 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -89,11 +130,13 @@ public class SELabGUI extends javax.swing.JFrame {
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("Contact Us");
+        jTextField2.setText("About Us");
         jTextField2.setBorder(null);
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
         jTextArea1.setRows(5);
+        jTextArea1.setText("Students of CSE-B :)\n");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout contactUsPanelLayout = new javax.swing.GroupLayout(contactUsPanel);
@@ -152,7 +195,12 @@ public class SELabGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Password");
 
-        jButton1.setText("Login");
+        usrLoginButton.setText("Login");
+        usrLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usrLoginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout userLoginPanelLayout = new javax.swing.GroupLayout(userLoginPanel);
         userLoginPanel.setLayout(userLoginPanelLayout);
@@ -165,10 +213,10 @@ public class SELabGUI extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(userLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(usrLoginButton)
                     .addGroup(userLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField3)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)))
+                        .addComponent(usernameTextField)
+                        .addComponent(passwordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
         userLoginPanelLayout.setVerticalGroup(
@@ -177,13 +225,13 @@ public class SELabGUI extends javax.swing.JFrame {
                 .addGap(113, 113, 113)
                 .addGroup(userLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(userLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addComponent(jButton1)
+                .addComponent(usrLoginButton)
                 .addContainerGap(226, Short.MAX_VALUE))
         );
 
@@ -359,8 +407,8 @@ public class SELabGUI extends javax.swing.JFrame {
 
         registrationSuccess.setTitle("Successful Registration");
         registrationSuccess.setBounds(new java.awt.Rectangle(0, 0, 451, 197));
-        registrationSuccess.setMaximumSize(new java.awt.Dimension(451, 197));
         registrationSuccess.setType(java.awt.Window.Type.POPUP);
+        registrationSuccess.setLocation(500, 300);
 
         jLabel14.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel14.setText("User Successfully Registered!");
@@ -380,6 +428,230 @@ public class SELabGUI extends javax.swing.JFrame {
             .addGroup(registrationSuccessLayout.createSequentialGroup()
                 .addGap(84, 84, 84)
                 .addComponent(jLabel14)
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+
+        userHomePanel.setMinimumSize(new java.awt.Dimension(867, 491));
+        userHomePanel.setPreferredSize(new java.awt.Dimension(867, 491));
+
+        profileButton.setText("Profile");
+        profileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileButtonActionPerformed(evt);
+            }
+        });
+
+        billsButton.setText("View Bills");
+        billsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billsButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(billsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(profileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(profileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(billsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(760, 491));
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 760, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 491, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout userHomePanelLayout = new javax.swing.GroupLayout(userHomePanel);
+        userHomePanel.setLayout(userHomePanelLayout);
+        userHomePanelLayout.setHorizontalGroup(
+            userHomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userHomePanelLayout.createSequentialGroup()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        userHomePanelLayout.setVerticalGroup(
+            userHomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        profilePanel.setMinimumSize(new java.awt.Dimension(760, 491));
+        profilePanel.setOpaque(false);
+        profilePanel.setPreferredSize(new java.awt.Dimension(760, 491));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setText("User Name");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel16.setText("First Name");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setText("User Type");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel18.setText("Email");
+
+        javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
+        profilePanel.setLayout(profilePanelLayout);
+        profilePanelLayout.setHorizontalGroup(
+            profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGap(181, 181, 181)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userType, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(310, Short.MAX_VALUE))
+        );
+        profilePanelLayout.setVerticalGroup(
+            profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(userType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(269, Short.MAX_VALUE))
+        );
+
+        billPanel.setMinimumSize(new java.awt.Dimension(760, 491));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        javax.swing.GroupLayout billPanelLayout = new javax.swing.GroupLayout(billPanel);
+        billPanel.setLayout(billPanelLayout);
+        billPanelLayout.setHorizontalGroup(
+            billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+        );
+        billPanelLayout.setVerticalGroup(
+            billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+        );
+
+        aboutUsPanel.setPreferredSize(new java.awt.Dimension(867, 491));
+
+        jTextField3.setEditable(false);
+        jTextField3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField3.setText("Contact Us");
+        jTextField3.setBorder(null);
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
+        jTextArea2.setRows(5);
+        jTextArea2.setText("SE LAB Group\n+91 9898998988\nEmail: developers@gmail.com");
+        jScrollPane3.setViewportView(jTextArea2);
+
+        javax.swing.GroupLayout aboutUsPanelLayout = new javax.swing.GroupLayout(aboutUsPanel);
+        aboutUsPanel.setLayout(aboutUsPanelLayout);
+        aboutUsPanelLayout.setHorizontalGroup(
+            aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aboutUsPanelLayout.createSequentialGroup()
+                .addGap(272, 272, 272)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(348, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutUsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130))
+        );
+        aboutUsPanelLayout.setVerticalGroup(
+            aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aboutUsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(154, Short.MAX_VALUE))
+        );
+
+        errorLogin.setTitle("Successful Registration");
+        errorLogin.setBounds(new java.awt.Rectangle(0, 0, 451, 197));
+        errorLogin.setType(java.awt.Window.Type.POPUP);
+        errorLogin.setLocation(500, 300);
+
+        jLabel19.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel19.setText("Login Unsuccessfull!!");
+        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout errorLoginLayout = new javax.swing.GroupLayout(errorLogin.getContentPane());
+        errorLogin.getContentPane().setLayout(errorLoginLayout);
+        errorLoginLayout.setHorizontalGroup(
+            errorLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(errorLoginLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel19)
+                .addContainerGap(174, Short.MAX_VALUE))
+        );
+        errorLoginLayout.setVerticalGroup(
+            errorLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(errorLoginLayout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(jLabel19)
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
@@ -415,9 +687,14 @@ public class SELabGUI extends javax.swing.JFrame {
             }
         });
 
-        aboutUsButton.setText("About Us");
+        aboutUsButton.setText("Contact Us");
+        aboutUsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutUsButtonActionPerformed(evt);
+            }
+        });
 
-        contactUsButton.setText("Contact Us");
+        contactUsButton.setText("About Us");
         contactUsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contactUsButtonActionPerformed(evt);
@@ -574,7 +851,30 @@ public class SELabGUI extends javax.swing.JFrame {
     private void registerUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerUserButtonActionPerformed
         // TODO add your handling code here:
         
-        String firstName,lastName,userName,emailId,password,userType,deviceId;
+         RegisterUser registerUser = new RegisterUser();
+       
+       String firstName,lastName,userName,emailId,password,userType,deviceId;
+       
+        firstName=firstNameFeild.getText();
+        lastName=lastNameFeild.getText();
+        userName=userNameFeild.getText();
+        emailId=emailIdFeild.getText();
+        password=passwordFeild.getText();
+        userType=userTypeComboBox.getItemAt(userTypeComboBox.getSelectedIndex());
+        deviceId=GSMDeviceIdFeild.getText();
+        
+        
+        registrationSuccess.setVisible(registerUser.registerNewUser(firstName, lastName, userName, emailId, password, userType, deviceId));
+        
+        RunRScript runRScript = new RunRScript();
+        
+        try {
+            runRScript.runScript();
+        } catch (REngineException ex) {
+            Logger.getLogger(SELabGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
         String DB_URL = "jdbc:mysql://localhost:3306/selab";
 
@@ -584,34 +884,235 @@ public class SELabGUI extends javax.swing.JFrame {
 
         Connection conn = null;
         Statement stmt = null;
-        try{
-           //STEP 2: Register JDBC driver
-           Class.forName("com.mysql.jdbc.Driver");
-
-           //STEP 3: Open a connection
-           System.out.println("Connecting to a selected database...");
-           conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        int badpass=0;
+        String msg="";
+     
+        String username=usernameTextField.getText();
+        
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+      
+        
+       
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        
            System.out.println("Connected database successfully...");
-            firstName=firstNameFeild.getText();
-            lastName=lastNameFeild.getText();
-            userName=userNameFeild.getText();
-            emailId=emailIdFeild.getText();
-            password=passwordFeild.getText();
-            userType=userTypeComboBox.getItemAt(userTypeComboBox.getSelectedIndex());
-            deviceId=GSMDeviceIdFeild.getText();
-            
+        
             stmt=conn.createStatement();
-            String insertBasicInformation="INSERT INTO basic_user_information " + 
-                    "VALUES ('" + firstName + "','" + lastName + "','" + userName + "','" + emailId + "','" + password + "','" + userType + "')";
-            stmt.executeUpdate(insertBasicInformation);
-            registrationSuccess.setVisible(true);
+            
+            
+            String query="SELECT badpassMod FROM `mytable` WHERE `mytable`.`usernameMod` = \'"+userName+"\'";
+            ResultSet rs = stmt.executeQuery(query);
+      
+            while (rs.next()){  
+                
+                 badpass=rs.getInt("badpassMod");
+         
+            }
             
         }catch(SQLException e){
             System.out.print("Exception");
         } catch (Exception ex) {
             Logger.getLogger(SELabGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        if(badpass==1){
+            msg="You have been registered! But Your password is weak!";
+        }
+        else{
+            msg="You have been registered!";
+        }
+        SendEmail sendEmail = new SendEmail();
+        sendEmail.send(emailId, msg);
+        
     }//GEN-LAST:event_registerUserButtonActionPerformed
+
+    private void billsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billsButtonActionPerformed
+         // TODO add your handling code here:\
+         
+         model = new DefaultTableModel(new String[]{"bill_id", "Username", "present","previous","due_date","total_amount","last_paid_date"}, 0);
+         jTable1.setModel(model);
+         String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost:3306/selab";
+
+        //  Database credentials
+        String USER = "root";
+        String PASS = "password";
+
+        Connection conn = null;
+        Statement stmt = null;
+        String actualPassword="";
+        String username=usernameTextField.getText();
+        
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+      
+        
+       
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        
+           System.out.println("Connected database successfully...");
+        
+            stmt=conn.createStatement();
+            
+            
+            String query="SELECT * FROM `bill_info` WHERE `bill_info`.`Username` = \'"+this.username+"\'";
+            ResultSet rs = stmt.executeQuery(query);
+      
+            while (rs.next()){  
+                
+                String d = rs.getString("bill_id");
+                String e = rs.getString("Username");
+                String f = rs.getString("present");
+                String g = rs.getString("previous");
+                String h = rs.getString("due_date");
+                String i = rs.getString("total_amount");
+                String j = rs.getString("last_paid_date");
+                model.addRow(new Object[]{d, e, f,g,h,i,j});
+         
+            }
+            
+        }catch(SQLException e){
+            System.out.print("Exception");
+        } catch (Exception ex) {
+            Logger.getLogger(SELabGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         jPanel6.remove(0);
+         jPanel6.add(billPanel);
+         jPanel6.revalidate();
+         jPanel6.repaint();
+         this.revalidate();
+         this.repaint();
+    }//GEN-LAST:event_billsButtonActionPerformed
+
+    private void usrLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrLoginButtonActionPerformed
+        // TODO add your handling code here:
+        boolean successfullLogin=false;
+        
+        
+        String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost:3306/selab";
+
+        //  Database credentials
+        String USER = "root";
+        String PASS = "password";
+
+        Connection conn = null;
+        Statement stmt = null;
+        String actualPassword="";
+        String username=usernameTextField.getText();
+        this.setUsername(username);
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+      
+        
+       
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        
+           System.out.println("Connected database successfully...");
+        
+            stmt=conn.createStatement();
+            
+            
+            String query="SELECT Password FROM `basic_user_information` WHERE `basic_user_information`.`Username` = \'"+username+"\'";
+            ResultSet rs = stmt.executeQuery(query);
+      
+            while (rs.next()){  
+                
+                 actualPassword = rs.getString("Password");
+         
+            }
+            
+        }catch(SQLException e){
+            System.out.print("Exception");
+        } catch (Exception ex) {
+            Logger.getLogger(SELabGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String password=passwordTextField.getText();
+        System.out.println(actualPassword);
+        if(password.equals(actualPassword.trim())){
+            successfullLogin=true;
+            System.out.println("YoYo");
+        }
+        if(successfullLogin)
+        {
+            jPanel4.remove(0);
+            jPanel4.add(userHomePanel);
+            jPanel4.revalidate();
+            jPanel4.repaint();
+            jPanel6.remove(0);
+            jPanel6.add(profilePanel);
+            this.revalidate();
+            this.repaint();
+            
+            String query = "SELECT * FROM `basic_user_information` WHERE `basic_user_information`.`Username` = \'"+username+"\'";
+            ResultSet rs;
+            
+            
+
+      
+            try {
+                    rs = stmt.executeQuery(query);
+                // iterate through the java resultset
+                while (rs.next())
+                {
+                    
+                    String firstname = rs.getString("firstName");
+                    //String lastName = rs.getString("lastName");
+                    String emailid = rs.getString("EmailId");
+                    String usertype = rs.getString("User Type");
+                    userName.setText(username);
+                    userType.setText(usertype);
+                    firstName.setText(firstname);
+                    email.setText(emailid);
+                    
+                    
+                }     } catch (SQLException ex) {
+                Logger.getLogger(SELabGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }
+        else
+        {
+            errorLogin.setVisible(true);
+        }
+    }//GEN-LAST:event_usrLoginButtonActionPerformed
+
+    private void profileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileButtonActionPerformed
+        // TODO add your handling code here:
+        jPanel6.remove(0);
+        jPanel6.add(profilePanel);
+        jPanel6.revalidate();
+        jPanel6.repaint();
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_profileButtonActionPerformed
+
+    private void aboutUsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsButtonActionPerformed
+        // TODO add your handling code here:
+        jPanel4.remove(0);
+        jPanel4.add(aboutUsPanel);
+        jPanel4.revalidate();
+        jPanel4.repaint();
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_aboutUsButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        jPanel4.remove(0);
+        jPanel4.add(homePanel);
+        usernameTextField.setText("");
+        passwordTextField.setText("");
+        jPanel4.revalidate();
+        jPanel4.repaint();
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -651,11 +1152,17 @@ public class SELabGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField GSMDeviceIdFeild;
     private javax.swing.JButton aboutUsButton;
+    private javax.swing.JPanel aboutUsPanel;
     private javax.swing.JButton adminLoginButton;
     private javax.swing.JPanel adminLoginPanel;
+    private javax.swing.JPanel billPanel;
+    private javax.swing.JButton billsButton;
     private javax.swing.JButton contactUsButton;
     private javax.swing.JPanel contactUsPanel;
+    private javax.swing.JTextField email;
     private javax.swing.JTextField emailIdFeild;
+    private javax.swing.JDialog errorLogin;
+    private javax.swing.JTextField firstName;
     private javax.swing.JTextField firstNameFeild;
     private javax.swing.JButton homeButton;
     private javax.swing.JPanel homePanel;
@@ -667,6 +1174,11 @@ public class SELabGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -680,13 +1192,19 @@ public class SELabGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
@@ -694,13 +1212,21 @@ public class SELabGUI extends javax.swing.JFrame {
     private javax.swing.JButton loginButton;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JTextField passwordFeild;
+    private javax.swing.JTextField passwordTextField;
+    private javax.swing.JButton profileButton;
+    private javax.swing.JPanel profilePanel;
     private javax.swing.JButton registerButton;
     private javax.swing.JPanel registerPanel;
     private javax.swing.JButton registerUserButton;
     private javax.swing.JDialog registrationSuccess;
+    private javax.swing.JPanel userHomePanel;
     private javax.swing.JButton userLoginButton;
     private javax.swing.JPanel userLoginPanel;
+    private javax.swing.JTextField userName;
     private javax.swing.JTextField userNameFeild;
+    private javax.swing.JTextField userType;
     private javax.swing.JComboBox<String> userTypeComboBox;
+    private javax.swing.JTextField usernameTextField;
+    private javax.swing.JButton usrLoginButton;
     // End of variables declaration//GEN-END:variables
 }

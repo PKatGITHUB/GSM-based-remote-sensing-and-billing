@@ -97,21 +97,6 @@ public class RegisterUserTest {
         
     }
     
-    @Test(expected = SQLException.class)
-    public void testRegisterNewUser_shouldThrowSQLException(){
-        String firstName = "firstName";
-        String lastName = "lastName";
-        String userName= "" ;
-        String emailId = "emailId";
-        String password = "password";
-        String userType = "userType";
-        String deviceId = "deviceId";
-        
-        RegisterUser instance = new RegisterUser();
-        
-        boolean result = instance.registerNewUser(firstName, lastName, userName, emailId, password, userType, deviceId);
-        
-        //assertEquals(true, result);
-    }
+   
     
 }
